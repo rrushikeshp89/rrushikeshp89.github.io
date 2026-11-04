@@ -177,8 +177,7 @@ def main() -> int:
         f'<path d="{path}" fill="none" stroke="#000" stroke-width="1.4" '
         'stroke-linecap="round" stroke-linejoin="round"/></svg>\n'
     )
-    OUTPUT.write_text(svg, encoding="utf-8", newline="
-")
+    OUTPUT.write_bytes(svg.encode("utf-8"))  # bytes: LF endings on every OS
     print(f"{len(lines)} streamlines, {len(svg.encode()) / 1024:.1f} kB -> {OUTPUT}")
     return 0
 
