@@ -67,6 +67,13 @@ Heuristic review of the section order: Work comes before Experience, which is ri
   - **Decorative only:** `aria-hidden="true"` and empty. Text contrast still passes axe in both themes.
   - **Gates:** Lighthouse mobile is unchanged, because its 412 px viewport never loads the art. On desktop, with the SVG allowed vs blocked: Performance 100 vs 100, LCP 255 ms vs 256 ms, TBT 0 vs 0, CLS 0.000 vs 0.000, and 5.3 kB transferred.
   - **Regenerate** (any Python 3.12+): `python -m venv .venv`, `pip install -r tools/flow-lines/requirements.txt`, `python tools/flow-lines/generate.py`.
+- **ADR-019 Scroll stroke from Skiper UI (skiper19), rebuilt without framer-motion, at the owner's request.**
+  - **What it is:** Skiper's component is an SVG path whose drawn length follows scroll progress, driven by framer-motion (`useScroll`, `useTransform`, `motion.path`). Installing it through `shadcn add` would have run `shadcn init`, which rewrites `globals.css` and adds config. It would also have added roughly 30–45 kB of gzipped JavaScript to a home route at 135.9 kB, over the 150 kB budget.
+  - **What was done instead:** the site uses Skiper's exact path with a CSS scroll-driven animation (`view-timeline` on `#work`, `animation-range: contain`), which adds 0 kB of JavaScript. Browsers without scroll timelines, and visitors who reduce motion, see it fully drawn.
+  - **Placement:** the first attempt, behind the hero, read as a knot, and most of it drew while the hero was already scrolling off screen. It now sits in the sticky margin of Selected work and draws from 0% to 100% as the reader moves through the three projects, so it works as a reading-progress mark. It never passes behind text, and its `--stroke-highlight` colour is still contrast-tested against `ink` and `ink-muted`. It is hidden below the `lg` breakpoint, where there is no margin column.
+  - **Licence:** the free licence requires attribution, so the footer credits Skiper UI (stored in `facts.site.credits`) and the component carries a source comment. Skiper's own credit to comgio.ai is kept in that comment.
+  - **Side fix:** the margin block (title, note, aside) is now sticky as a unit. Before, only the title was sticky, and on long sections it slid over its own note.
+  - **Measured:** JS on `/` is still 135.9 kB. Lighthouse mobile scored 89, 96 and 98 across three local runs (the 89 is machine noise: phones never render the stroke and the JavaScript is unchanged). Desktop scored Performance 100, LCP 267 ms, CLS 0.000, TBT 47 ms. 73 e2e tests pass, including drawing progress, reduced motion, phone hiding and the credit link.
 
 ## Skills log
 
