@@ -124,6 +124,13 @@ Heuristic review of the section order: Work comes before Experience, which is ri
   - With no `TODO(confirm)` left, `pnpm test:ship` now runs in CI.
   - **Static Plex Sans for clean print on Linux.** The first CI-built PDF mis-spaced letters in medium-weight text ("Dat abases", "Securit y"), a Chromium-on-Linux PDF issue with variable fonts that did not show on Windows. Google serves Plex Sans as a variable font even when weights are named, so the site now loads static 400 and 500 cuts from `@fontsource/ibm-plex-sans` through `next/font/local`. Cost: about 6 kB more font data (88 kB total); the PDF dropped from 132 kB to 40 kB.
 
+- **ADR-031 "Email me" opens an email options panel.** A `mailto:` link only hands off to the visitor's registered mail app. On machines without one set up (the owner's included, and common for people who use webmail), a click does nothing visible. Both email triggers (the hero's "Email me" and the address in Contact) stay real `mailto:` links, so they still work without JavaScript. With JavaScript, a click opens a native modal slip (the receipts' pattern: focus trapped, Esc and Close dismiss it, focus returns, anchored where supported) offering:
+  - **Copy email address,** with a `role="status"` confirmation, and the address spelled out if the clipboard is blocked.
+  - **Write in Gmail** and **Write in Outlook.com:** pre-addressed compose links in a new tab, announced as such.
+  - **Open my mail app:** the original `mailto:`.
+  - **Why not a contact form:** no third party sees anything unless the visitor picks Gmail or Outlook, so there is no form service, key, spam handling or privacy note to maintain (ADR-007 stands).
+  - **Cost and checks:** +0.6 kB of JS. e2e covers the `mailto:` fallback, every action's link, a real clipboard copy, Esc and focus return, the Contact trigger, and axe on the open panel.
+
 ## Skills log
 
 | Phase                | Skill                  | What it changed                                                                                                                                                                                                                                                                                               |
