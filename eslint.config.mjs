@@ -22,6 +22,11 @@ export default defineConfig([
       "no-console": ["error", { allow: ["warn", "error"] }],
     },
   },
+  {
+    // Build and audit scripts report to the terminal.
+    files: ["scripts/**/*.mjs"],
+    rules: { "no-console": "off" },
+  },
   globalIgnores([
     ".next/**",
     "out/**",

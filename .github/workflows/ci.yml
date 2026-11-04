@@ -39,11 +39,25 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: JavaScript budget
+        run: pnpm check:bundle
+
       - name: Install Playwright browser
         run: pnpm exec playwright install --with-deps chromium
 
       - name: End-to-end and accessibility tests
         run: pnpm test:e2e
+
+      - name: Lighthouse (mobile)
+        run: pnpm lhci
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 14
 
       - name: Upload Playwright report
         if: failure()
