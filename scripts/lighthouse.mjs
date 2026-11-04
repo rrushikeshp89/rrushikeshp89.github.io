@@ -10,7 +10,7 @@ import lighthouse from "lighthouse";
 const PORT = 4320;
 const DEBUG_PORT = 9333;
 const RUNS = 5;
-const ROUTES = ["/"];
+const ROUTES = ["/", "/work/grove-hrms"];
 const OUT_DIR = ".lighthouseci";
 
 const CATEGORY_MINIMUMS = { performance: 0.95, accessibility: 1, "best-practices": 0.95, seo: 1 };

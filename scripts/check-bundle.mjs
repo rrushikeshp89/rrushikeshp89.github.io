@@ -9,6 +9,7 @@ const BUDGET_BYTES = 150 * 1024;
 const ROUTES = [
   { route: "/", file: "index.html", budgeted: true },
   { route: "/design", file: "design.html", budgeted: false },
+  { route: "/work/grove-hrms", file: "work/grove-hrms.html", budgeted: false },
 ];
 
 function moduleScriptSources(html) {

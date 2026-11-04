@@ -119,3 +119,21 @@ test.describe("count-up", () => {
     expect(shift).toBeLessThan(0.01);
   });
 });
+
+test("every receipt shows a dotted underline, including counting numerals", async ({ page }) => {
+  await page.goto("/");
+  const undecorated = await page
+    .getByRole("button", { name: /, show source$/ })
+    .evaluateAll((buttons) =>
+      buttons
+        .map((button) => {
+          const digits = button.querySelector("[data-count-up]") ?? button;
+          return {
+            name: button.textContent ?? "",
+            line: getComputedStyle(digits).textDecorationLine,
+          };
+        })
+        .filter(({ line }) => !line.includes("underline")),
+    );
+  expect(undecorated).toEqual([]);
+});

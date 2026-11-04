@@ -1,4 +1,8 @@
-/** Every route the axe matrix scans. Extend as pages are added. */
-export const ROUTES = ["/", "/design"] as const;
+import { rawFacts } from "../../src/content/facts";
+
+export const CASE_STUDY_ROUTES = rawFacts.projects.map((project) => `/work/${project.slug}`);
+
+/** Every route the axe matrix scans. */
+export const ROUTES = ["/", "/design", ...CASE_STUDY_ROUTES] as const;
 
 export const COLOR_SCHEMES = ["light", "dark"] as const;
