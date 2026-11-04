@@ -244,7 +244,7 @@ export const rawFacts = {
       bullets: [
         "Full-stack B2B sales CRM with a shared TypeScript domain layer (Zod schemas, business rules) reused by client and server: one source of truth for pipeline and lead-scoring logic.",
         "Secure Express 5 REST API over SQLite via Turso (libSQL) with versioned migrations, foreign-key integrity, session auth, RBAC, and rate limiting.",
-        "Shipped with Docker on Railway: health checks, daily database snapshots, GitHub Actions CI running type checks and end-to-end API tests.",
+        "Shipped as a Docker image on Render with a Turso database: health checks, point-in-time restore, and GitHub Actions CI running type checks, end-to-end API tests and a container smoke test.",
       ],
       links: [
         { kind: "source", href: LEADHUB_REPO },
