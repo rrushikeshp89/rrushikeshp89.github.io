@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+# Least privilege by default; the deploy job asks for what Pages needs.
+permissions:
+  contents: read
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -59,6 +63,13 @@ jobs:
           path: .lighthouseci
           retention-days: 14
 
+      # Only a push to main that passed every check above is published (ADR-029).
+      - name: Package the site for GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: out
+
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v7
@@ -66,3 +77,22 @@ jobs:
           name: playwright-report
           path: playwright-report
           retention-days: 7
+
+  deploy:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
