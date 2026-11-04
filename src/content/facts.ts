@@ -139,7 +139,101 @@ export const rawFacts = {
           },
         },
       ],
-      limitations: TODO_CONFIRM,
+      limitations: [
+        "Payroll is simulated and says so on every screen; it is not for running real payroll.",
+        "Email is not sent: password-reset messages are queued in a table, and a real deployment needs a mail provider.",
+        "The demo is shared: everyone uses the same four accounts and company, and it resets every night at 02:00 IST.",
+        "Signed-in pages are slower on weak phones, because they wait for the session and live data.",
+      ],
+      caseStudy: {
+        problem:
+          "Grove is a complete HR platform for a company of about 100 people, from clocking in to running payroll, with separate experiences for employees, managers, HR and admins. The hard part is trust: each person may see and change only what their role and scope allow, and every change has to leave a record.",
+        diagram: {
+          title: "How a change moves through Grove HRMS",
+          description:
+            "The browser submits a form to a Next.js server action. createAction authenticates the session, validates with Zod and checks role, scope and record. The change, its audit entries and its notifications are written in one Postgres transaction that commits or rolls back together.",
+          layers: [
+            { label: "Browser", items: ["React 19 forms (React Hook Form)"] },
+            {
+              label: "Next.js 16 on Vercel",
+              items: [
+                "proxy.ts: cookie redirects only",
+                "Server components: pages and queries",
+                "Server actions: createAction",
+                "Route handlers: CSV, PDF, files, cron",
+              ],
+            },
+            {
+              label: "createAction, every time",
+              items: [
+                "Authenticate the session",
+                "Validate with Zod",
+                "Check role, scope and record",
+              ],
+            },
+            {
+              label: "One Postgres transaction",
+              items: ["The change", "Audit entries", "Notifications"],
+            },
+            {
+              label: "Supabase",
+              items: [
+                "Postgres via Prisma 7, row level security with no policies",
+                "Private storage bucket",
+              ],
+            },
+          ],
+        },
+        decisions: [
+          {
+            title: "The database has one door.",
+            detail:
+              "Every table has row level security on with no policies, so Supabase's public API cannot reach it. Only the server connects, and it checks permissions in code.",
+          },
+          {
+            title: "Every check is on the server.",
+            detail:
+              "The proxy only redirects people without a session cookie. Pages, actions and route handlers each call requireUser or requirePermission, and queries filter by what the person may see.",
+          },
+          {
+            title: "One way to change data.",
+            detail:
+              "createAction runs the same steps every time, and a change, its audit entries and its notifications commit together or not at all.",
+          },
+          {
+            title: "Business rules are plain functions.",
+            detail:
+              "Leave balances, payroll, review visibility, CSV checks and reminders are pure, unit-tested functions shared by the UI previews and the server.",
+          },
+        ],
+        proof: [
+          {
+            claim: "Roles, scopes and permissions",
+            label: "src/lib/rbac.ts",
+            href: blob(GROVE_REPO, "src/lib/rbac.ts"),
+          },
+          {
+            claim: "The single path for every mutation",
+            label: "src/server/action.ts",
+            href: blob(GROVE_REPO, "src/server/action.ts"),
+          },
+          {
+            claim: "The 45-table data model",
+            label: "prisma/schema.prisma",
+            href: blob(GROVE_REPO, "prisma/schema.prisma"),
+          },
+          {
+            claim: "Every-screen accessibility sweep",
+            label: "tests/e2e/sweep.spec.ts",
+            href: blob(GROVE_REPO, "tests/e2e/sweep.spec.ts"),
+          },
+          {
+            claim: "Typecheck, lint, unit and Playwright on every push",
+            label: ".github/workflows/ci.yml",
+            href: blob(GROVE_REPO, ".github/workflows/ci.yml"),
+          },
+        ],
+      },
     },
     {
       slug: "leadhub-crm",
@@ -157,7 +251,96 @@ export const rawFacts = {
         { kind: "live", href: "https://crm.fluentopsai.com/inquiry" },
       ],
       metrics: [],
-      limitations: TODO_CONFIRM,
+      limitations: [
+        "It does not send email, calendar invites or push notifications yet; reminders stay in the app.",
+        "Proposal documents are not generated, and their views are not tracked.",
+        "There is no CSV import or export, and one installation serves one organisation.",
+        "The live CRM holds a real team's data, so sign-in is by invitation; the public inquiry form is open to try.",
+      ],
+      caseStudy: {
+        problem:
+          "LeadHub is a sales CRM for teams that sell custom software, AI solutions and technology consulting: capture leads, qualify them, run the pipeline, send proposals and close deals in one place. Pipeline value, win rate and lead scores have to give the same answer on the dashboard and on the server.",
+        diagram: {
+          title: "How LeadHub is put together",
+          description:
+            "The React app and the Express 5 server both import one shared TypeScript layer of domain model, calculations and Zod schemas. The server adds sessions, roles, security headers and business rules, and stores data in SQLite through libSQL with versioned migrations and foreign keys.",
+          layers: [
+            {
+              label: "Browser",
+              items: ["React app, screens loaded on demand", "Public inquiry form"],
+            },
+            {
+              label: "shared/, used by client and server",
+              items: [
+                "model.ts: stages and statuses",
+                "calc.ts: weighted pipeline, win rate, scoring",
+                "schemas.ts: Zod schema for every write",
+              ],
+            },
+            {
+              label: "Express 5 server",
+              items: [
+                "Sessions, scrypt hashing and roles",
+                "CSP, headers and rate limits",
+                "Business rules, activity log, duplicate checks",
+              ],
+            },
+            {
+              label: "SQLite via Turso (libSQL)",
+              items: ["Versioned, append-only migrations", "Foreign keys guard deletes"],
+            },
+          ],
+        },
+        decisions: [
+          {
+            title: "One source of truth for the rules.",
+            detail:
+              "Every calculation lives in shared/calc.ts and every write's validation in shared/schemas.ts, so the dashboard and the server always agree: the server enforces the schemas, the client shows the same field errors.",
+          },
+          {
+            title: "The database refuses bad deletes.",
+            detail:
+              "A company cannot be deleted while it has leads, opportunities or invoices, and a lead's primary contact cannot be deleted. The server also rejects a lead whose contact belongs to a different company.",
+          },
+          {
+            title: "Migrations only move forward.",
+            detail:
+              "Schema changes are appended to a list in server/db.ts, and each runs once, inside a transaction.",
+          },
+          {
+            title: "Status follows the work.",
+            detail:
+              "Logging the first call moves a lead to Contacted and booking discovery moves it to Discovery Scheduled; leads only move forward, and every change is written to the record's timeline.",
+          },
+        ],
+        proof: [
+          {
+            claim: "Weighted pipeline, win rate and qualification score",
+            label: "shared/calc.ts",
+            href: blob(LEADHUB_REPO, "shared/calc.ts"),
+          },
+          {
+            claim: "Zod schemas shared by client and server",
+            label: "shared/schemas.ts",
+            href: blob(LEADHUB_REPO, "shared/schemas.ts"),
+          },
+          {
+            claim: "Versioned migrations and transactions",
+            label: "server/db.ts",
+            href: blob(LEADHUB_REPO, "server/db.ts"),
+          },
+          {
+            claim: "End-to-end API tests: lifecycle, permissions, concurrent writes",
+            label: "tests/api.test.ts",
+            href: blob(LEADHUB_REPO, "tests/api.test.ts"),
+          },
+          {
+            claim: "CI: type checks, tests, build and a Docker smoke test",
+            label: ".github/workflows/ci.yml",
+            href: blob(LEADHUB_REPO, ".github/workflows/ci.yml"),
+          },
+        ],
+      },
     },
     {
       slug: "stockroom-erp",
@@ -220,7 +403,76 @@ export const rawFacts = {
           },
         },
       ],
-      limitations: TODO_CONFIRM,
+      limitations: [
+        "The demo runs on a free plan: after it has been idle the first visit takes about 30 seconds, and its data resets whenever the service restarts.",
+        "It is one Node process with SQLite running in-process, with no separate database server.",
+      ],
+      caseStudy: {
+        problem:
+          "A small shop or café sits between two mistakes: order too much and cash sits on shelves, order too little and sales are lost. Stockroom tracks stock, suppliers and orders and suggests what to reorder. The stock count must never drift, even when two people receive the same delivery at once.",
+        diagram: {
+          title: "How Stockroom handles a request",
+          description:
+            "The React app sends JSON with a bearer token to the Express 5 API, which validates it with Zod and checks the RBAC policy before calling a service. Services write to SQLite inside BEGIN IMMEDIATE and COMMIT, and database triggers maintain stock history and the purchase-order state machine.",
+          layers: [
+            { label: "Browser", items: ["React 18 and TypeScript"] },
+            { label: "Express 5 API", items: ["Bearer JWT", "Zod validation"] },
+            {
+              label: "RBAC policy (rbac.js)",
+              items: ["Route permissions", "Row scope", "Per-record policy", "Field masking"],
+            },
+            { label: "Services", items: ["Inventory", "Purchase orders", "Dashboard"] },
+            {
+              label: "SQLite (node:sqlite)",
+              items: ["BEGIN IMMEDIATE … COMMIT", "Triggers: stock history, order state machine"],
+            },
+          ],
+        },
+        decisions: [
+          {
+            title: "Receiving is atomic.",
+            detail:
+              "Receiving sets the status only where it is still ordered; zero rows matched means it was already received, so the request returns 409 and rolls back. A double click or two receivers cannot add stock twice.",
+          },
+          {
+            title: "Stock only changes through history.",
+            detail:
+              "A trigger rejects direct edits to a product's stock, history rows cannot be edited or deleted, and a CHECK constraint aborts anything that would take stock below zero.",
+          },
+          {
+            title: "The order lifecycle lives in the database.",
+            detail:
+              "Draft, awaiting approval, ordered, received and cancelled transitions are enforced by a trigger, not just by the app, and received or cancelled orders are frozen.",
+          },
+          {
+            title: "Four layers of access control on the server.",
+            detail:
+              "Route permissions, row-level scope, per-record policy with separation of duties (a manager cannot approve their own order) and field masking that strips costs from staff responses. The browser only hides buttons and is never trusted.",
+          },
+        ],
+        proof: [
+          {
+            claim: "Roles, permissions and the four layers",
+            label: "server/src/rbac.js",
+            href: blob(STOCKROOM_REPO, "server/src/rbac.js"),
+          },
+          {
+            claim: "Triggers and constraints that guard stock",
+            label: "server/src/schema.sql",
+            href: blob(STOCKROOM_REPO, "server/src/schema.sql"),
+          },
+          {
+            claim: "Data-integrity tests",
+            label: "server/test/integrity.test.js",
+            href: blob(STOCKROOM_REPO, "server/test/integrity.test.js"),
+          },
+          {
+            claim: "Headless-Chrome UX audit: 175 runs, CLS and tap targets",
+            label: "docs/ux/REPORT.md",
+            href: blob(STOCKROOM_REPO, "docs/ux/REPORT.md"),
+          },
+        ],
+      },
     },
   ],
   secondaryProjects: [

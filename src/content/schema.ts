@@ -35,6 +35,19 @@ const projectLinkSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("live"), href: httpsUrl }),
 ]);
 
+const caseStudySchema = z.object({
+  /** What the system is for and what makes it hard, in two or three sentences. */
+  problem: text,
+  /** Drawn as stacked layers, top to bottom, with arrows between them. */
+  diagram: z.object({
+    title: text,
+    description: text,
+    layers: z.array(z.object({ label: text, items: z.array(text).min(1) })).min(2),
+  }),
+  decisions: z.array(z.object({ title: text, detail: text })).min(2),
+  proof: z.array(z.object({ claim: text, label: text, href: httpsUrl })).min(1),
+});
+
 export const projectSchema = z.object({
   slug,
   name: text,
@@ -44,6 +57,7 @@ export const projectSchema = z.object({
   links: z.array(projectLinkSchema).min(1),
   metrics: z.array(metricSchema),
   limitations: z.union([z.array(text).min(1), pending]),
+  caseStudy: caseStudySchema,
 });
 
 const secondaryProjectSchema = z.object({
