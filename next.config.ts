@@ -1,4 +1,10 @@
 import type { NextConfig } from "next";
+import { facts } from "./src/content/facts";
+import { TODO_CONFIRM } from "./src/content/schema";
+
+/** /resume points at the PDF once it exists; until then, at LinkedIn (DECISIONS.md, ADR-008). */
+const resumeDestination =
+  facts.identity.resume === TODO_CONFIRM ? facts.identity.linkedin : facts.identity.resume;
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -48,6 +54,9 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [{ source: "/resume", destination: resumeDestination, permanent: false }];
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];

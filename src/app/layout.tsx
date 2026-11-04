@@ -10,10 +10,21 @@ import "./globals.css";
 
 const { name, role, headline } = facts.identity;
 
+const siteTitle = `${name}, ${role}`;
+
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title: { default: `${name}, ${role}`, template: `%s | ${name}` },
+  title: { default: siteTitle, template: `%s | ${name}` },
   description: headline,
+  authors: [{ name, url: facts.identity.github }],
+  openGraph: {
+    type: "website",
+    siteName: name,
+    title: siteTitle,
+    description: headline,
+    locale: "en_IN",
+  },
+  twitter: { card: "summary_large_image", title: siteTitle, description: headline },
 };
 
 export const viewport: Viewport = {
