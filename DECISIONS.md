@@ -122,6 +122,7 @@ Heuristic review of the section order: Work comes before Experience, which is ri
   - **Print styles:** site chrome is hidden, and the palette is pinned to ink on white whatever the screen theme.
   - **On screen:** the page is in the axe matrix. Its contact links get 24 px targets with row spacing (WCAG 2.5.8), and print keeps the compact layout.
   - With no `TODO(confirm)` left, `pnpm test:ship` now runs in CI.
+  - **Static Plex Sans for clean print on Linux.** The first CI-built PDF mis-spaced letters in medium-weight text ("Dat abases", "Securit y"), a Chromium-on-Linux PDF issue with variable fonts that did not show on Windows. Google serves Plex Sans as a variable font even when weights are named, so the site now loads static 400 and 500 cuts from `@fontsource/ibm-plex-sans` through `next/font/local`. Cost: about 6 kB more font data (88 kB total); the PDF dropped from 132 kB to 40 kB.
 
 ## Skills log
 
