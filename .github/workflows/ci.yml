@@ -40,14 +40,19 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
+      # Every fact is confirmed; a TODO(confirm) in facts.ts now fails the build.
+      - name: Ship gate
+        run: pnpm test:ship
+
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      # next build, then the résumé PDF is printed from the built /resume/document/ page.
       - name: Build
         run: pnpm build
 
       - name: JavaScript budget
         run: pnpm check:bundle
-
-      - name: Install Playwright browser
-        run: pnpm exec playwright install --with-deps chromium
 
       - name: End-to-end and accessibility tests
         run: pnpm test:e2e
