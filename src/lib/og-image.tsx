@@ -4,7 +4,11 @@ import { ImageResponse } from "next/og";
 import { facts } from "@/content/facts";
 
 export const OG_SIZE = { width: 1200, height: 630 } as const;
-export const OG_CONTENT_TYPE = "image/png";
+
+/** Open Graph image metadata for a share card served from `path` (an og.png route). */
+export function ogImageMetadata(path: string, alt: string) {
+  return [{ url: path, ...OG_SIZE, type: "image/png", alt }];
+}
 
 /** Light-theme tokens (src/styles/tokens.css): the share card always uses the paper look. */
 const PAPER = "#f5f6f0";

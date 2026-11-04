@@ -4,6 +4,8 @@ import { SiteHeader } from "@/components/sections/SiteHeader";
 import { ThemeScript } from "@/components/theme/ThemeScript";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { facts } from "@/content/facts";
+import { CONTENT_SECURITY_POLICY } from "@/lib/csp";
+import { ogImageMetadata } from "@/lib/og-image";
 import { siteUrl } from "@/lib/site";
 import { display, displayItalic, mono, text } from "./fonts";
 import "./globals.css";
@@ -23,8 +25,14 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: headline,
     locale: "en_IN",
+    images: ogImageMetadata("/og.png", `${name}: ${headline}`),
   },
-  twitter: { card: "summary_large_image", title: siteTitle, description: headline },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: headline,
+    images: ["/og.png"],
+  },
 };
 
 export const viewport: Viewport = {
@@ -42,6 +50,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
+        <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
         <ThemeScript />
       </head>
       <body className="min-h-dvh">

@@ -7,6 +7,7 @@ import { Section } from "@/components/ui/Section";
 import { TextLink } from "@/components/ui/TextLink";
 import { facts } from "@/content/facts";
 import { getProject } from "@/content/queries";
+import { ogImageMetadata } from "@/lib/og-image";
 import { TODO_CONFIRM, type Project } from "@/content/schema";
 
 /** Metadata for a case-study route; each route file under src/app/work/ calls it with its slug. */
@@ -15,7 +16,18 @@ export function caseStudyMetadata(slug: string): Metadata {
   return {
     title: `${project.name} case study`,
     description: project.pitch,
-    alternates: { canonical: `/work/${project.slug}` },
+    alternates: { canonical: `/work/${project.slug}/` },
+    openGraph: {
+      title: `${project.name} case study`,
+      description: project.pitch,
+      images: ogImageMetadata(`/work/${project.slug}/og.png`, `${project.name} case study`),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.name} case study`,
+      description: project.pitch,
+      images: [`/work/${project.slug}/og.png`],
+    },
   };
 }
 
