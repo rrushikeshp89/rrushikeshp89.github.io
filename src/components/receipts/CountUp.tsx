@@ -66,6 +66,7 @@ export function CountUp({ to, display }: CountUpProps) {
   return (
     <span
       ref={ref}
+      data-count-up=""
       className="inline-block text-left tabular-nums"
       style={{ minWidth: `${display.length}ch` } as CSSProperties}
     >

@@ -164,6 +164,7 @@
   /* Receipts (components/receipts/Receipt.tsx): a number you can ask about. */
   .receipt {
     cursor: pointer;
+    text-align: left;
     border-radius: 2px;
     color: inherit;
     text-decoration-line: underline;
@@ -175,6 +176,20 @@
   }
 
   .receipt:hover {
+    text-decoration-style: solid;
+  }
+
+  /* Decoration does not propagate into inline-blocks, so the count-up digits carry their own. */
+  .receipt [data-count-up] {
+    text-decoration: inherit;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.16em;
+  }
+
+  .receipt:hover [data-count-up] {
     text-decoration-style: solid;
   }
 

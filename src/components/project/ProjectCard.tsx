@@ -44,12 +44,16 @@ export function ProjectCard({ project, featured = false, demo }: ProjectCardProp
       {project.limitations !== TODO_CONFIRM ? (
         <p className="mt-6 max-w-measure text-ink-muted">
           <span className="font-medium text-ink">What this doesn&rsquo;t do yet: </span>
-          {project.limitations.join(" ")}
+          {project.limitations[0]}
         </p>
       ) : null}
 
       <div className="mt-8">
-        <ProjectLinks name={project.name} links={project.links} />
+        <ProjectLinks
+          name={project.name}
+          links={project.links}
+          caseStudyHref={`/work/${project.slug}`}
+        />
       </div>
     </Card>
   );
