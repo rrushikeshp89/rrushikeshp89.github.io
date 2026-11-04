@@ -2,7 +2,7 @@
 
 Personal portfolio of Rushikesh Panchal, Software Developer (Bengaluru). It is a static Next.js site and is built to be evidence of the work it describes: strict TypeScript, content validated with Zod, WCAG 2.2 AA checked with axe, and end-to-end tests.
 
-> Status: Phase 3 (home page) is done. Receipts, the role-switch demo and case studies are next. See `DECISIONS.md` for the plan, the architecture decisions and the open items.
+> Status: Phases 1–6 are done: home page, receipts, the Grove role switch, three case studies, SEO and share images. Phase 7 (verify and ship) still needs the domain and the résumé PDF. See `DECISIONS.md` for the plan, the architecture decisions and the open items.
 
 ## Run it
 
@@ -21,6 +21,8 @@ pnpm lint           # ESLint: next, jsx-a11y strict, no any / non-null assertion
 pnpm test           # Vitest unit tests
 pnpm build          # production build; fails if src/content/facts.ts is invalid
 pnpm test:e2e       # Playwright + axe against the production build (run pnpm build first)
+pnpm check:bundle   # gzipped JS per route; fails if / exceeds 150 kB
+pnpm lhci           # Lighthouse (mobile, median of 5) on / and a case study; fails below the targets
 pnpm test:ship      # release gate: fails while any TODO(confirm) remains in facts.ts
 ```
 

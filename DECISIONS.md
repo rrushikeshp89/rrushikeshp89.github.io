@@ -97,6 +97,16 @@ Heuristic review of the section order: Work comes before Experience, which is ri
 - **ADR-026 Long metrics step down a size.** "0.495 → 0.004" wrapped onto three lines at numeral size. Displays over 6 characters now use the next size down, take a full row and never wrap.
 - **Count-up digits carry their own underline.** Text decoration does not propagate into inline-blocks, so the counting numerals had lost the dotted cue that marks a receipt. An e2e test now checks every receipt for an underline.
 
+- **ADR-027 SEO and sharing, all static.**
+  - **Share images:** `next/og` renders a share card for the site and one per case study from a single renderer (`src/lib/og-image.tsx`). It uses the paper palette, Newsreader and Plex Sans read from `@fontsource` WOFF files at build time (no network), and the flow lines faded in from the left.
+  - **Metadata:** Open Graph and Twitter (`summary_large_image`), and a canonical link on every page.
+  - **Person JSON-LD:** only `name`, `jobTitle`, `url` and `sameAs` (LinkedIn, GitHub). An e2e test checks it holds no email or phone.
+  - **Sitemap and robots:** `sitemap.xml` lists `/` and the three case studies; `robots.txt` disallows `/design`, which is also `noindex`.
+  - **Résumé:** `/resume` is a temporary (307) redirect to the PDF once it exists, and to LinkedIn until then.
+  - **404:** a custom page inside the normal layout. Unknown URLs get a real 404 status, and it is in the axe matrix.
+  - **Caveat:** canonical, Open Graph and sitemap URLs use `http://localhost:3000` until the domain is confirmed (open item 1), and the ship gate fails until then.
+- **ADR-028 Case-study IDs carry the project slug.** This extends ADR-025. When one case study links to the next, the previous page stays hidden in the DOM. Shared IDs (`architecture-title`, `problem-title`) let the visible page's `aria-labelledby` resolve to the hidden page's heading, so LeadHub's diagram could be announced with Grove's title. Section and diagram IDs are now `<slug>-…`. An e2e test moves Grove → LeadHub and checks the figure's accessible name, and that no ID repeats except the layout's `main`.
+
 ## Skills log
 
 | Phase | Skill                  | What it changed                                                                                                                                                                                                                                                                                               |
