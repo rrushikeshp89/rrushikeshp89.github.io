@@ -1,4 +1,4 @@
-import { factsSchema, TODO_CONFIRM, type FactsInput } from "./schema";
+import { factsSchema, type FactsInput } from "./schema";
 
 /**
  * Single source of truth for everything the site says. Parsed at module load, so an invalid
@@ -29,7 +29,7 @@ export const rawFacts = {
     availability: "Based in Bengaluru, open to Software Developer roles.",
     objective:
       "Software Developer and recent B.Tech CSE (Data Science) graduate building full-stack TypeScript applications with Next.js, React, Node.js, and PostgreSQL, featuring server-side access control, transactional data integrity, and end-to-end testing. Seeking a Software Developer role to design, test, and ship reliable, production-ready code.",
-    resume: TODO_CONFIRM,
+    resume: "/resume.pdf",
   },
   approach: {
     principles: [

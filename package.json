@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/build-resume.mjs",
     "start": "node scripts/serve-static.mjs out 3000",
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint .",

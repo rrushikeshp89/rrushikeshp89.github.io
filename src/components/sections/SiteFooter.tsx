@@ -3,7 +3,7 @@ import { facts } from "@/content/facts";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-rule">
+    <footer className="border-t border-rule print:hidden">
       <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-8 text-small text-ink-muted sm:px-6 lg:px-8">
         <p>{facts.identity.name}</p>
         <p>

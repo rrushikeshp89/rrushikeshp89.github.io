@@ -53,3 +53,21 @@
   --warn: #e0b45c;
   --flow-lines-opacity: 0.2;
 }
+
+/*
+  Print (the résumé PDF, or anyone printing a page): ink on white whatever the screen theme.
+  Same specificity as the dark blocks above and later in the cascade, so it wins in print.
+*/
+@media print {
+  :root,
+  :root:not([data-theme="light"]),
+  :root[data-theme="dark"] {
+    color-scheme: light;
+    --paper: #ffffff;
+    --surface: #ffffff;
+    --ink: #1b2621;
+    --ink-muted: #4c5751;
+    --rule: #c9d0c5;
+    --accent: #1f5c45;
+  }
+}

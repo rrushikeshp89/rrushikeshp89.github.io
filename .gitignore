@@ -49,3 +49,6 @@ next-env.d.ts
 # python tooling
 .venv/
 __pycache__/
+
+# owner-supplied originals, never published
+/private/

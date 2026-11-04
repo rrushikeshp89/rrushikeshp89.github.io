@@ -21,7 +21,7 @@ export function SiteHeader() {
   const { name, linkedin, github, resume } = facts.identity;
 
   return (
-    <header className="z-40 border-b border-rule bg-paper md:sticky md:top-0">
+    <header className="z-40 border-b border-rule bg-paper md:sticky md:top-0 print:hidden">
       <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-x-6 px-4 py-2 sm:px-6 lg:px-8">
         <Link
           href="/"

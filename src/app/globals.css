@@ -249,6 +249,11 @@
   }
 }
 
+@page {
+  size: A4;
+  margin: 11mm 13mm;
+}
+
 @keyframes slip-in {
   from {
     opacity: 0;
