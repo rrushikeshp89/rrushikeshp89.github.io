@@ -45,3 +45,7 @@ next-env.d.ts
 /playwright-report/
 /test-results/
 /.lighthouseci/
+
+# python tooling
+.venv/
+__pycache__/

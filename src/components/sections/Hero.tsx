@@ -10,8 +10,9 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="mx-auto grid max-w-page grid-cols-12 gap-x-6 px-4 pt-14 pb-16 sm:px-6 lg:px-8 lg:pt-24 lg:pb-24"
+      className="relative isolate mx-auto grid max-w-page grid-cols-12 gap-x-6 px-4 pt-14 pb-16 sm:px-6 lg:px-8 lg:pt-24 lg:pb-24"
     >
+      <div aria-hidden="true" className="flow-lines" />
       <h1 id="hero-title" className="col-span-12 font-display text-display lg:col-span-10">
         {keepHyphensTogether(headline)}
       </h1>

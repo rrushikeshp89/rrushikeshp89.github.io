@@ -17,6 +17,7 @@
   --secondary: #34506e;
   --success: #2f6b3a;
   --warn: #8a5a00;
+  --flow-lines-opacity: 0.14;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +34,7 @@
     --secondary: #9db7d6;
     --success: #8fd19a;
     --warn: #e0b45c;
+    --flow-lines-opacity: 0.2;
   }
 }
 
@@ -49,4 +51,5 @@
   --secondary: #9db7d6;
   --success: #8fd19a;
   --warn: #e0b45c;
+  --flow-lines-opacity: 0.2;
 }

@@ -131,6 +131,36 @@
     }
   }
 
+  /*
+    Decorative streamlines behind the hero (tools/flow-lines). The SVG is a CSS mask over the
+    theme's secondary colour, so it follows light/dark, ships no JavaScript, never blocks render
+    and is not an LCP candidate. Shown only on wide screens and when motion is not reduced.
+  */
+  .flow-lines {
+    display: none;
+  }
+
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .flow-lines {
+      display: block;
+      position: absolute;
+      inset: 0 0 0 30%;
+      z-index: -1;
+      pointer-events: none;
+      background-color: var(--secondary);
+      opacity: var(--flow-lines-opacity);
+      mask-image:
+        url("/flow-lines.svg"),
+        linear-gradient(to right, transparent, #000 45%, #000 80%, transparent);
+      mask-composite: intersect;
+      mask-size:
+        cover,
+        100% 100%;
+      mask-position: center;
+      mask-repeat: no-repeat;
+    }
+  }
+
   .slip {
     transform-origin: var(--radix-popover-content-transform-origin);
   }

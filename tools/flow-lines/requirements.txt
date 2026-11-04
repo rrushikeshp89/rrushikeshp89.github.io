@@ -1,0 +1,2 @@
+fluidsim[fft]==26.10.0
+numpy
