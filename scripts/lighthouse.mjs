@@ -10,7 +10,7 @@ import lighthouse from "lighthouse";
 const PORT = 4320;
 const DEBUG_PORT = 9333;
 const RUNS = 5;
-const ROUTES = ["/", "/work/grove-hrms"];
+const ROUTES = ["/", "/work/grove-hrms/"];
 const OUT_DIR = ".lighthouseci";
 
 const CATEGORY_MINIMUMS = { performance: 0.95, accessibility: 1, "best-practices": 0.95, seo: 1 };
@@ -22,7 +22,7 @@ const AUDIT_MAXIMUMS = {
 };
 
 function startServer() {
-  const server = spawn(`pnpm start --port ${PORT}`, {
+  const server = spawn(`node scripts/serve-static.mjs out ${PORT}`, {
     shell: true,
     stdio: "pipe",
     detached: process.platform !== "win32",

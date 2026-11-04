@@ -57,7 +57,7 @@ for (const project of rawFacts.projects) {
 test("each home-page card opens its case study", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: "Case study for LeadHub CRM" }).click();
-  await expect(page).toHaveURL(/\/work\/leadhub-crm$/);
+  await expect(page).toHaveURL(/\/work\/leadhub-crm\/$/);
   // Visited routes stay in the DOM but hidden, so ask for the visible level-1 heading.
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("LeadHub CRM");
 });

@@ -62,7 +62,11 @@ test.describe("receipts", () => {
   test("the close button closes it and returns focus", async ({ page }) => {
     const trigger = heroReceipt(page);
     await trigger.click();
-    await page.getByRole("dialog").getByRole("button", { name: "Close" }).click();
+    const slip = page.getByRole("dialog");
+    // Let the 160 ms entrance animation finish: a click mid-animation can land on the backdrop,
+    // which (by design, closedby="any") closes the slip before the button is reached.
+    await slip.evaluate((node) => Promise.all(node.getAnimations().map((a) => a.finished)));
+    await slip.getByRole("button", { name: "Close" }).click();
     await expect(page.getByRole("dialog")).toHaveCount(0);
     await expect(trigger).toBeFocused();
   });

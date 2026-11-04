@@ -8,8 +8,8 @@ import { gzipSync } from "node:zlib";
 const BUDGET_BYTES = 150 * 1024;
 const ROUTES = [
   { route: "/", file: "index.html", budgeted: true },
-  { route: "/design", file: "design.html", budgeted: false },
-  { route: "/work/grove-hrms", file: "work/grove-hrms.html", budgeted: false },
+  { route: "/design/", file: "design/index.html", budgeted: false },
+  { route: "/work/grove-hrms/", file: "work/grove-hrms/index.html", budgeted: false },
 ];
 
 function moduleScriptSources(html) {
@@ -21,14 +21,12 @@ function moduleScriptSources(html) {
 }
 
 function gzippedSize(src) {
-  return gzipSync(readFileSync(join(".next", src.replace(/^\/_next\//, "")))).length;
+  return gzipSync(readFileSync(join("out", src))).length;
 }
 
 let failed = false;
 for (const { route, file, budgeted } of ROUTES) {
-  const sources = [
-    ...new Set(moduleScriptSources(readFileSync(join(".next/server/app", file), "utf8"))),
-  ];
+  const sources = [...new Set(moduleScriptSources(readFileSync(join("out", file), "utf8")))];
   const total = sources.reduce((sum, src) => sum + gzippedSize(src), 0);
   const overBudget = budgeted && total > BUDGET_BYTES;
   failed ||= overBudget;

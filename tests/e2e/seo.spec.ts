@@ -9,10 +9,7 @@ test("the home page has share metadata and a canonical link", async ({ page }) =
     "content",
     `${rawFacts.identity.name}, ${rawFacts.identity.role}`,
   );
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
-    "content",
-    /opengraph-image/,
-  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /\/og\.png$/);
   await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
     "content",
     "summary_large_image",
@@ -44,7 +41,7 @@ test("Person JSON-LD names the profiles and nothing private", async ({ page }) =
 
 test("every case study has its own share image", async ({ request }) => {
   for (const project of rawFacts.projects) {
-    const response = await request.get(`/work/${project.slug}/opengraph-image`);
+    const response = await request.get(`/work/${project.slug}/og.png`);
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toBe("image/png");
   }
@@ -58,14 +55,18 @@ test("robots.txt keeps the design page out and points at the sitemap", async ({ 
 
 test("the sitemap lists the home page and every case study, not /design", async ({ request }) => {
   const body = await (await request.get("/sitemap.xml")).text();
-  for (const project of rawFacts.projects) expect(body).toContain(`/work/${project.slug}</loc>`);
+  for (const project of rawFacts.projects) expect(body).toContain(`/work/${project.slug}/</loc>`);
   expect(body).not.toContain("/design");
 });
 
-test("/resume redirects to the résumé, or to LinkedIn until it exists", async ({ request }) => {
-  const response = await request.get("/resume", { maxRedirects: 0 });
-  expect(response.status()).toBe(307);
-  expect(response.headers().location).toMatch(/\.pdf$|linkedin\.com/);
+test("/resume forwards to the résumé, or to LinkedIn until it exists", async ({ request }) => {
+  // No server-side redirects on GitHub Pages: a static page refreshes and links instead.
+  const html = await (await request.get("/resume/")).text();
+  const destination = rawFacts.identity.resume.endsWith(".pdf")
+    ? rawFacts.identity.resume
+    : rawFacts.identity.linkedin;
+  expect(html).toContain(`<meta http-equiv="refresh" content="0; url=${destination}"`);
+  expect(html).toContain(`href="${destination}"`);
 });
 
 test("unknown pages show the custom 404 with a way back", async ({ page }) => {

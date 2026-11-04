@@ -28,9 +28,9 @@ export default defineConfig({
       },
     },
   ],
-  // Tests run against the production build: run `pnpm build` first.
+  // Tests run against the static export, served like GitHub Pages: run `pnpm build` first.
   webServer: {
-    command: `pnpm start --port ${PORT}`,
+    command: `node scripts/serve-static.mjs out ${PORT}`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !isCI,
     timeout: 60_000,
