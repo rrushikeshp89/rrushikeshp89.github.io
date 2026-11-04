@@ -2,7 +2,7 @@
 
 Personal portfolio of Rushikesh Panchal, Software Developer (Bengaluru). It is a static Next.js site and is built to be evidence of the work it describes: strict TypeScript, content validated with Zod, WCAG 2.2 AA checked with axe, and end-to-end tests.
 
-> Status: Phase 1 (foundation). The pages are placeholders. See `DECISIONS.md` for the plan, the architecture decisions and the open items.
+> Status: Phase 3 (home page) is done. Receipts, the role-switch demo and case studies are next. See `DECISIONS.md` for the plan, the architecture decisions and the open items.
 
 ## Run it
 
@@ -30,4 +30,5 @@ CI (`.github/workflows/ci.yml`) runs the same steps on every push.
 
 - `src/content/facts.ts`: every fact, number and link the site shows, validated by `schema.ts`.
 - `src/styles/tokens.css`: the light and dark design tokens.
+- `tools/flow-lines`: the Python (fluidsim) generator for the decorative hero streamlines. It runs offline, and only its SVG output ships.
 - `tests/unit`, `tests/e2e`: unit tests, and the Playwright specs with the axe matrix in `tests/e2e/routes.ts`.
