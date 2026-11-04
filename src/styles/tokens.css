@@ -1,0 +1,48 @@
+/*
+  Design tokens. Light is the default; dark is a separately tuned palette, not an inversion.
+  Dark applies when the visitor chose it (data-theme="dark") or when the system prefers dark
+  and the visitor has not chosen light.
+*/
+:root {
+  color-scheme: light;
+  --paper: #f5f6f0;
+  --surface: #fbfcf8;
+  --ink: #1b2621;
+  --ink-muted: #55615a;
+  --rule: #d3d9cf;
+  --accent: #1f5c45;
+  --accent-soft: #dcede3;
+  --secondary: #34506e;
+  --success: #2f6b3a;
+  --warn: #8a5a00;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #131a17;
+    --surface: #1b2420;
+    --ink: #e7eadf;
+    --ink-muted: #a7b1a8;
+    --rule: #2f3b35;
+    --accent: #82cca8;
+    --accent-soft: #1e3a2e;
+    --secondary: #9db7d6;
+    --success: #8fd19a;
+    --warn: #e0b45c;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #131a17;
+  --surface: #1b2420;
+  --ink: #e7eadf;
+  --ink-muted: #a7b1a8;
+  --rule: #2f3b35;
+  --accent: #82cca8;
+  --accent-soft: #1e3a2e;
+  --secondary: #9db7d6;
+  --success: #8fd19a;
+  --warn: #e0b45c;
+}
