@@ -7,6 +7,7 @@ import { Section } from "@/components/ui/Section";
 import { Slip } from "@/components/ui/Slip";
 import { TextLink } from "@/components/ui/TextLink";
 import { facts } from "@/content/facts";
+import { getMetric, getProject } from "@/content/queries";
 
 export const metadata: Metadata = {
   title: "Design system",
@@ -27,22 +28,14 @@ const SWATCHES = [
   { token: "warn", role: "Caution status, always with text" },
 ] as const;
 
-function requireProject(slug: string) {
-  const project = facts.projects.find((candidate) => candidate.slug === slug);
-  if (!project) throw new Error(`Unknown project: ${slug}`);
-  return project;
-}
-
 export default function DesignPage() {
-  const grove = requireProject("grove-hrms");
-  const leadhub = requireProject("leadhub-crm");
+  const grove = getProject("grove-hrms");
+  const leadhub = getProject("leadhub-crm");
   const [tablesMetric] = grove.metrics;
-  const clsMetric = requireProject("stockroom-erp").metrics.find(
-    (metric) => metric.id === "stockroom-cls",
-  );
+  const clsMetric = getMetric("stockroom-cls");
 
   return (
-    <main id="main">
+    <main id="main" tabIndex={-1} className="focus:outline-none">
       <header className="mx-auto flex max-w-page flex-wrap items-end justify-between gap-6 px-4 pt-16 sm:px-6 lg:px-8">
         <div>
           <h1 className="font-display text-display">Design system</h1>

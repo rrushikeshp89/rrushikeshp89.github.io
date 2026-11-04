@@ -88,7 +88,7 @@ const skillGroupSchema = z.object({
 
 export const factsSchema = z
   .object({
-    site: z.object({ url: z.union([httpsUrl, pending]) }),
+    site: z.object({ url: z.union([httpsUrl, pending]), source: httpsUrl }),
     identity: z.object({
       name: text,
       role: text,
@@ -97,9 +97,16 @@ export const factsSchema = z
       linkedin: httpsUrl,
       github: httpsUrl,
       headline: text,
+      subline: text,
+      availability: text,
       objective: text,
+      /** Site path of the résumé PDF, e.g. "/resume.pdf". */
+      resume: z.union([z.string().regex(/^\/[\w./-]+\.pdf$/), pending]),
     }),
-    principles: z.array(text).length(3),
+    approach: z.object({
+      principles: z.array(z.object({ title: text, detail: text })).length(3),
+      writePath: z.object({ caption: text, steps: z.array(text).min(2) }),
+    }),
     projects: z.array(projectSchema).min(1),
     secondaryProjects: z.array(secondaryProjectSchema),
     experience: z.array(experienceSchema),

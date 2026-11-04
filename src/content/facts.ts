@@ -10,7 +10,7 @@ const LEADHUB_REPO = `${GITHUB}/leadhub-crm`;
 const STOCKROOM_REPO = `${GITHUB}/stockroom-erp`;
 
 export const rawFacts = {
-  site: { url: TODO_CONFIRM },
+  site: { url: TODO_CONFIRM, source: `${GITHUB}/portfolio` },
   identity: {
     name: "Rushikesh Panchal",
     role: "Software Developer",
@@ -19,10 +19,44 @@ export const rawFacts = {
     linkedin: "https://www.linkedin.com/in/rushikesh-panchal/",
     github: GITHUB,
     headline: "Software developer building reliable full-stack TypeScript systems.",
+    subline:
+      "Next.js, Node.js and PostgreSQL, with server-side access control, transactional data integrity and end-to-end tests.",
+    availability: "Based in Bengaluru, open to Software Developer roles.",
     objective:
       "Software Developer and recent B.Tech CSE (Data Science) graduate building full-stack TypeScript applications with Next.js, React, Node.js, and PostgreSQL, featuring server-side access control, transactional data integrity, and end-to-end testing. Seeking a Software Developer role to design, test, and ship reliable, production-ready code.",
+    resume: TODO_CONFIRM,
   },
-  principles: ["Show the why.", "Enforce it on the server.", "Prove it, then say what's missing."],
+  approach: {
+    principles: [
+      {
+        title: "Show the why.",
+        detail:
+          "Scores and decisions come with their reasons: SHAP reasons for every readmission score, weighted factors in résumé matching.",
+      },
+      {
+        title: "Enforce it on the server.",
+        detail:
+          "Permissions are checked where the data is written, so hiding a button is never the only safeguard.",
+      },
+      {
+        title: "Prove it, then say what’s missing.",
+        detail:
+          "Claims ship with tests (unit, end-to-end, axe), and every project states what it does not do yet.",
+      },
+    ],
+    writePath: {
+      caption: "Every write in Grove HRMS takes this path.",
+      steps: [
+        "Interface",
+        "Server action",
+        "Permission check",
+        "Zod validation",
+        "Transaction",
+        "Audit log",
+        "PostgreSQL",
+      ],
+    },
+  },
   projects: [
     {
       slug: "grove-hrms",

@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 import { ThemeScript } from "@/components/theme/ThemeScript";
 import { SkipLink } from "@/components/ui/SkipLink";
 import { facts } from "@/content/facts";
 import { siteUrl } from "@/lib/site";
-import { display, mono, text } from "./fonts";
+import { display, displayItalic, mono, text } from "./fonts";
 import "./globals.css";
 
 const { name, role, headline } = facts.identity;
@@ -25,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${text.variable} ${mono.variable} antialiased`}
+      className={`${display.variable} ${displayItalic.variable} ${text.variable} ${mono.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -33,7 +35,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-dvh">
         <SkipLink />
+        <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

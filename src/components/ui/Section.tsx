@@ -22,7 +22,7 @@ export function Section({ id, title, note, children }: SectionProps) {
       className="mx-auto grid max-w-page grid-cols-12 gap-x-6 px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
     >
       <div className="col-span-12 mb-8 lg:col-span-3 lg:mb-0">
-        <h2 id={titleId} className="font-display text-h3 italic lg:sticky lg:top-24">
+        <h2 id={titleId} className="font-display-italic text-h3 italic lg:sticky lg:top-24">
           {title}
         </h2>
         {note ? <div className="mt-3 max-w-[32ch] text-small text-ink-muted">{note}</div> : null}

@@ -1,13 +1,21 @@
-import { facts } from "@/content/facts";
+import { Approach } from "@/components/sections/Approach";
+import { Contact } from "@/components/sections/Contact";
+import { Credentials } from "@/components/sections/Credentials";
+import { Experience } from "@/components/sections/Experience";
+import { Hero } from "@/components/sections/Hero";
+import { SelectedWork } from "@/components/sections/SelectedWork";
+import { StackGrid } from "@/components/sections/StackGrid";
 
 export default function HomePage() {
-  const { name, headline, objective } = facts.identity;
-
   return (
-    <main id="main" className="mx-auto max-w-3xl px-6 py-24">
-      <h1 className="font-display text-5xl leading-tight">{name}</h1>
-      <p className="mt-6 text-2xl">{headline}</p>
-      <p className="mt-6 max-w-[68ch] text-ink-muted">{objective}</p>
+    <main id="main" tabIndex={-1} className="focus:outline-none">
+      <Hero />
+      <SelectedWork />
+      <Approach />
+      <Experience />
+      <StackGrid />
+      <Credentials />
+      <Contact />
     </main>
   );
 }
