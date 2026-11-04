@@ -71,7 +71,7 @@ export const rawFacts = {
       stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS", "Playwright"],
       bullets: [
         "Full-stack HRMS on Next.js 16 and Supabase Postgres with a 45-table Prisma schema (people, attendance, leave, payroll, recruitment) and a seeded 100-employee demo company.",
-        "Server-side RBAC across 4 roles and 26 own/team/company-scoped permissions; every write goes through one Zod-validated, transactional, audit-logged action layer.",
+        "Server-side RBAC across 4 roles and 28 own/team/company-scoped permissions; every write goes through one Zod-validated, transactional, audit-logged action layer.",
         "Employee directory, permission-aware profiles, and an interactive org chart on a custom WCAG AA design system, covered by 130+ Vitest and Playwright/axe tests.",
       ],
       links: [
@@ -96,12 +96,12 @@ export const rawFacts = {
         },
         {
           id: "grove-permissions",
-          display: "26",
-          countTo: 26,
+          display: "28",
+          countTo: 28,
           label: "scoped permissions",
           receipt: {
             explanation:
-              "26 permissions, each scoped to own, team or company records, checked on the server across 4 roles.",
+              "28 permissions, each scoped to own, team or company records, checked on the server across 4 roles.",
             proof: {
               kind: "repo",
               href: blob(GROVE_REPO, "src/lib/rbac.ts"),
