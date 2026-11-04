@@ -2,6 +2,8 @@ import type { Project } from "@/content/schema";
 
 interface ArchitectureDiagramProps {
   diagram: Project["caseStudy"]["diagram"];
+  /** Unique per page, so a hidden, preserved route can never lend this figure its name. */
+  titleId: string;
 }
 
 /**
@@ -10,10 +12,10 @@ interface ArchitectureDiagramProps {
  * 1.4.10) and screen readers get the same structure sighted readers do. Only the arrows are SVG,
  * and they are decorative.
  */
-export function ArchitectureDiagram({ diagram }: ArchitectureDiagramProps) {
+export function ArchitectureDiagram({ diagram, titleId }: ArchitectureDiagramProps) {
   return (
-    <figure aria-labelledby="architecture-title">
-      <p id="architecture-title" className="font-medium">
+    <figure aria-labelledby={titleId}>
+      <p id={titleId} className="font-medium">
         {diagram.title}
       </p>
       <ol className="mt-5" aria-label={`${diagram.title}, top to bottom`}>

@@ -38,6 +38,8 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
   const project = getProject(slug);
 
   const { caseStudy } = project;
+  // IDs carry the slug: Next keeps visited routes hidden in the DOM, and shared IDs would let
+  // aria-labelledby resolve to another case study's heading (DECISIONS.md, ADR-025).
   const next = nextProject(project);
 
   return (
@@ -56,15 +58,18 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
         </div>
       </header>
 
-      <Section id="problem" title="The problem">
+      <Section id={`${project.slug}-problem`} title="The problem">
         <p className="max-w-measure text-lead">{caseStudy.problem}</p>
       </Section>
 
-      <Section id="architecture" title="Architecture">
-        <ArchitectureDiagram diagram={caseStudy.diagram} />
+      <Section id={`${project.slug}-architecture`} title="Architecture">
+        <ArchitectureDiagram
+          diagram={caseStudy.diagram}
+          titleId={`${project.slug}-diagram-title`}
+        />
       </Section>
 
-      <Section id="decisions" title="Key decisions">
+      <Section id={`${project.slug}-decisions`} title="Key decisions">
         <dl className="max-w-measure space-y-8">
           {caseStudy.decisions.map((decision) => (
             <div key={decision.title}>
@@ -76,7 +81,7 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
       </Section>
 
       <Section
-        id="proof"
+        id={`${project.slug}-proof`}
         title="Proof"
         note="Every number opens its source. Every claim links to the code."
       >
@@ -101,7 +106,7 @@ export function CaseStudyPage({ slug }: CaseStudyPageProps) {
       </Section>
 
       {project.limitations !== TODO_CONFIRM ? (
-        <Section id="limitations" title="What it doesn’t do yet">
+        <Section id={`${project.slug}-limitations`} title="What it doesn’t do yet">
           <ul className="max-w-measure list-disc space-y-3 pl-5 marker:text-accent">
             {project.limitations.map((limitation) => (
               <li key={limitation}>{limitation}</li>

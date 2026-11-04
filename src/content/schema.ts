@@ -17,7 +17,7 @@ const proofSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("resume"), label: text }),
 ]);
 
-export const metricSchema = z.object({
+const metricSchema = z.object({
   id: slug,
   /** Exactly what the page shows, e.g. "130+" or "0.495 → 0.004". */
   display: text,
@@ -48,7 +48,7 @@ const caseStudySchema = z.object({
   proof: z.array(z.object({ claim: text, label: text, href: httpsUrl })).min(1),
 });
 
-export const projectSchema = z.object({
+const projectSchema = z.object({
   slug,
   name: text,
   pitch: text,

@@ -188,7 +188,7 @@ export const rawFacts = {
           {
             title: "The database has one door.",
             detail:
-              "Every table has row level security on with no policies, so Supabase's public API cannot reach it. Only the server connects, and it checks permissions in code.",
+              "Every table has row level security on with no policies, so Supabase’s public API cannot reach it. Only the server connects, and it checks permissions in code.",
           },
           {
             title: "Every check is on the server.",
@@ -255,7 +255,7 @@ export const rawFacts = {
         "It does not send email, calendar invites or push notifications yet; reminders stay in the app.",
         "Proposal documents are not generated, and their views are not tracked.",
         "There is no CSV import or export, and one installation serves one organisation.",
-        "The live CRM holds a real team's data, so sign-in is by invitation; the public inquiry form is open to try.",
+        "The live CRM holds a real team’s data, so sign-in is by invitation; the public inquiry form is open to try.",
       ],
       caseStudy: {
         problem:
@@ -295,12 +295,12 @@ export const rawFacts = {
           {
             title: "One source of truth for the rules.",
             detail:
-              "Every calculation lives in shared/calc.ts and every write's validation in shared/schemas.ts, so the dashboard and the server always agree: the server enforces the schemas, the client shows the same field errors.",
+              "Every calculation lives in shared/calc.ts and every write’s validation in shared/schemas.ts, so the dashboard and the server always agree: the server enforces the schemas, the client shows the same field errors.",
           },
           {
             title: "The database refuses bad deletes.",
             detail:
-              "A company cannot be deleted while it has leads, opportunities or invoices, and a lead's primary contact cannot be deleted. The server also rejects a lead whose contact belongs to a different company.",
+              "A company cannot be deleted while it has leads, opportunities or invoices, and a lead’s primary contact cannot be deleted. The server also rejects a lead whose contact belongs to a different company.",
           },
           {
             title: "Migrations only move forward.",
@@ -310,7 +310,7 @@ export const rawFacts = {
           {
             title: "Status follows the work.",
             detail:
-              "Logging the first call moves a lead to Contacted and booking discovery moves it to Discovery Scheduled; leads only move forward, and every change is written to the record's timeline.",
+              "Logging the first call moves a lead to Contacted and booking discovery moves it to Discovery Scheduled; leads only move forward, and every change is written to the record’s timeline.",
           },
         ],
         proof: [
@@ -437,7 +437,7 @@ export const rawFacts = {
           {
             title: "Stock only changes through history.",
             detail:
-              "A trigger rejects direct edits to a product's stock, history rows cannot be edited or deleted, and a CHECK constraint aborts anything that would take stock below zero.",
+              "A trigger rejects direct edits to a product’s stock, history rows cannot be edited or deleted, and a CHECK constraint aborts anything that would take stock below zero.",
           },
           {
             title: "The order lifecycle lives in the database.",
