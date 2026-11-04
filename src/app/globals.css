@@ -161,12 +161,74 @@
     }
   }
 
-  .slip {
-    transform-origin: var(--radix-popover-content-transform-origin);
+  /* Receipts (components/receipts/Receipt.tsx): a number you can ask about. */
+  .receipt {
+    cursor: pointer;
+    border-radius: 2px;
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.16em;
+    transition: text-decoration-color 200ms;
+  }
+
+  .receipt:hover {
+    text-decoration-style: solid;
+  }
+
+  .receipt-inline {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .receipt-slip {
+    width: min(24rem, calc(100vw - 2rem));
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-slip);
+    background-color: var(--surface);
+    color: var(--ink);
+    box-shadow:
+      0 0 0 1px var(--rule),
+      var(--shadow-slip);
+  }
+
+  .receipt-slip::backdrop {
+    background-color: rgb(15 25 20 / 0.16);
+  }
+
+  /* Where anchor positioning exists, the slip opens next to its number on wide screens. */
+  @supports (anchor-name: --a) {
+    @media (min-width: 640px) {
+      .receipt {
+        anchor-name: var(--receipt-anchor);
+      }
+
+      .receipt-slip {
+        position-anchor: var(--receipt-anchor);
+        position-area: bottom span-right;
+        position-try-fallbacks:
+          flip-block,
+          flip-inline,
+          flip-block flip-inline;
+        inset: auto;
+        margin: 0.5rem;
+        /* The UA cap would shrink the slip to fit beside its number; let the flips decide. */
+        max-height: none;
+      }
+
+      .receipt-slip::backdrop {
+        background-color: transparent;
+      }
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .slip[data-state="open"] {
+    .receipt-slip[open] {
       animation: slip-in 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
     }
   }

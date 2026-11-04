@@ -20,6 +20,9 @@ export default defineConfig([
       ],
       "@typescript-eslint/consistent-type-imports": "error",
       "no-console": ["error", { allow: ["warn", "error"] }],
+      // A horizontally scrollable region must be focusable so keyboard users can scroll it
+      // (WAI-ARIA practice; axe rule scrollable-region-focusable).
+      "jsx-a11y/no-noninteractive-tabindex": ["error", { roles: ["tabpanel", "region"] }],
     },
   },
   {

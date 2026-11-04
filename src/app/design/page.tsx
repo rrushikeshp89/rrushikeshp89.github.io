@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+import { Receipt } from "@/components/receipts/Receipt";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { ChipList } from "@/components/ui/Chip";
 import { Section } from "@/components/ui/Section";
-import { Slip } from "@/components/ui/Slip";
 import { TextLink } from "@/components/ui/TextLink";
 import { facts } from "@/content/facts";
 import { getMetric, getProject } from "@/content/queries";
@@ -125,37 +125,13 @@ export default function DesignPage() {
       </Section>
 
       <Section
-        id="slips"
-        title="Slips"
+        id="receipts"
+        title="Receipts"
         note="Open with click, Enter or Space. Esc closes and returns focus."
       >
-        {clsMetric ? (
-          <p className="max-w-measure">
-            Stockroom&rsquo;s layout shift went from{" "}
-            <Slip
-              title={`${clsMetric.display} ${clsMetric.label}`}
-              trigger={
-                <button
-                  type="button"
-                  className="cursor-pointer font-mono underline decoration-accent decoration-dotted decoration-2 underline-offset-4"
-                >
-                  {clsMetric.display}
-                  <span className="sr-only">: where this number comes from</span>
-                </button>
-              }
-            >
-              <p>{clsMetric.receipt.explanation}</p>
-              {"href" in clsMetric.receipt.proof ? (
-                <p>
-                  <TextLink href={clsMetric.receipt.proof.href}>
-                    {clsMetric.receipt.proof.label}
-                  </TextLink>
-                </p>
-              ) : null}
-            </Slip>
-            .
-          </p>
-        ) : null}
+        <p className="max-w-measure">
+          Stockroom&rsquo;s layout shift went from <Receipt inline metric={clsMetric} />.
+        </p>
       </Section>
     </main>
   );

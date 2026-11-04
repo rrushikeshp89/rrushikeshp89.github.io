@@ -1,3 +1,5 @@
+import { CountUp } from "@/components/receipts/CountUp";
+import { Receipt } from "@/components/receipts/Receipt";
 import { Section } from "@/components/ui/Section";
 import { facts } from "@/content/facts";
 import { getMetric } from "@/content/queries";
@@ -15,7 +17,13 @@ export function Experience() {
       note={
         <p>
           <span className="block font-mono text-numeral tracking-tight text-ink">
-            {lead.display}
+            <Receipt metric={lead} className="inline-flex min-h-11 min-w-11 items-center">
+              {lead.countTo === undefined ? (
+                lead.display
+              ) : (
+                <CountUp to={lead.countTo} display={lead.display} />
+              )}
+            </Receipt>
           </span>
           {lead.label} at Zetpeak, from tested data-quality checks.
         </p>

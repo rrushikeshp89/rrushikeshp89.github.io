@@ -1,4 +1,4 @@
-import { Figure } from "@/components/receipts/Figure";
+import { Receipt } from "@/components/receipts/Receipt";
 import { ButtonLink } from "@/components/ui/Button";
 import { facts } from "@/content/facts";
 import { getMetric } from "@/content/queries";
@@ -27,10 +27,10 @@ export function Hero() {
         </ButtonLink>
       </div>
       <p className="col-span-12 mt-14 max-w-[60ch] border-t border-rule pt-6 text-ink lg:col-span-8 lg:col-start-5">
-        Recent work: Grove HRMS, a <Figure metric={getMetric("grove-tables")} />
-        -table system with <Figure metric={getMetric("grove-permissions")} /> scoped permissions and{" "}
-        <Figure metric={getMetric("grove-tests")} /> tests, and Stockroom, where a UX audit cut
-        layout shift <Figure metric={getMetric("stockroom-cls")} />.
+        Recent work: Grove HRMS, a <Receipt inline metric={getMetric("grove-tables")} />
+        -table system with <Receipt inline metric={getMetric("grove-permissions")} /> scoped
+        permissions and <Receipt inline metric={getMetric("grove-tests")} /> tests, and Stockroom,
+        where a UX audit cut layout shift <Receipt inline metric={getMetric("stockroom-cls")} />.
       </p>
     </section>
   );
