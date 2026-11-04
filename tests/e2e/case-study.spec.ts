@@ -42,7 +42,7 @@ for (const project of rawFacts.projects) {
 
     test("states its limitations and shows only sourced numbers", async ({ page }) => {
       for (const limitation of project.limitations) {
-        await expect(page.locator("#limitations")).toContainText(limitation);
+        await expect(page.locator(`#${project.slug}-limitations`)).toContainText(limitation);
       }
       const text = await page.locator("main").innerText();
       const unsourced = [...new Set(text.match(NUMBER_TOKEN) ?? [])].filter(
@@ -82,6 +82,22 @@ test("case studies link onward to the next one", async ({ page }) => {
   await page.goto("/work/grove-hrms");
   const next = page.getByRole("navigation", { name: "More case studies" }).getByRole("link");
   await expect(next).toHaveText("LeadHub CRM");
+});
+
+test("after moving between case studies, each diagram keeps its own name", async ({ page }) => {
+  await page.goto("/work/grove-hrms");
+  await page
+    .getByRole("navigation", { name: "More case studies" })
+    .getByRole("link", { name: "LeadHub CRM" })
+    .click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("LeadHub CRM");
+  await expect(page.getByRole("figure")).toHaveAccessibleName("How LeadHub is put together");
+  const ids = await page.evaluate(() => {
+    const all = [...document.querySelectorAll("[id]")].map((node) => node.id);
+    return all.filter((id, index) => all.indexOf(id) !== index);
+  });
+  // Only the shared layout landmark may repeat (the skip link handles it, ADR-025).
+  expect(ids.filter((id) => id !== "main")).toEqual([]);
 });
 
 test("an unknown case study returns 404", async ({ page }) => {
