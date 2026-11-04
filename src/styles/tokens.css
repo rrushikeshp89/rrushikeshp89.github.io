@@ -17,7 +17,6 @@
   --secondary: #34506e;
   --success: #2f6b3a;
   --warn: #8a5a00;
-  --stroke-highlight: #c4e1ce;
   --flow-lines-opacity: 0.14;
 }
 
@@ -35,7 +34,6 @@
     --secondary: #9db7d6;
     --success: #8fd19a;
     --warn: #e0b45c;
-    --stroke-highlight: #24443a;
     --flow-lines-opacity: 0.2;
   }
 }
@@ -53,6 +51,5 @@
   --secondary: #9db7d6;
   --success: #8fd19a;
   --warn: #e0b45c;
-  --stroke-highlight: #24443a;
   --flow-lines-opacity: 0.2;
 }

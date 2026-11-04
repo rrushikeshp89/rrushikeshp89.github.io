@@ -52,8 +52,6 @@ const PAIRS: readonly [string, string, number][] = [
   ["success", "surface", 4.5],
   ["warn", "paper", 4.5],
   ["warn", "surface", 4.5],
-  ["ink", "stroke-highlight", 4.5],
-  ["ink-muted", "stroke-highlight", 4.5],
 ];
 
 describe("design tokens", () => {

@@ -12,15 +12,6 @@ export function SiteFooter() {
             Source for this site
           </TextLink>
         </p>
-        {facts.site.credits.map((credit) => (
-          <p key={credit.href} className="w-full">
-            {credit.text}{" "}
-            <TextLink href={credit.href} className="inline-flex min-h-11 items-center">
-              {credit.linkText}
-            </TextLink>
-            .
-          </p>
-        ))}
       </div>
     </footer>
   );

@@ -1,4 +1,3 @@
-import { ScrollStroke } from "@/components/decor/ScrollStroke";
 import { ProjectCard } from "@/components/project/ProjectCard";
 import { SecondaryProjects } from "@/components/project/SecondaryProjects";
 import { Section } from "@/components/ui/Section";
@@ -12,8 +11,6 @@ export function SelectedWork() {
       id="work"
       title="Selected work"
       note="Three business systems, each with its source and a live demo."
-      aside={<ScrollStroke />}
-      className="work-progress"
     >
       <div className="space-y-16">
         {featured ? <ProjectCard project={featured} featured /> : null}

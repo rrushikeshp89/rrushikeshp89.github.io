@@ -91,8 +91,6 @@ export const factsSchema = z
     site: z.object({
       url: z.union([httpsUrl, pending]),
       source: httpsUrl,
-      /** Third-party work the site uses and must credit. */
-      credits: z.array(z.object({ text: text, linkText: text, href: httpsUrl })),
     }),
     identity: z.object({
       name: text,

@@ -13,9 +13,6 @@ export const rawFacts = {
   site: {
     url: TODO_CONFIRM,
     source: `${GITHUB}/portfolio`,
-    credits: [
-      { text: "Scroll stroke adapted from", linkText: "Skiper UI", href: "https://skiper-ui.com" },
-    ],
   },
   identity: {
     name: "Rushikesh Panchal",
