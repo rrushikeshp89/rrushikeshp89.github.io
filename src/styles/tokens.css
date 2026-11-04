@@ -1,7 +1,8 @@
 /*
   Design tokens. Light is the default; dark is a separately tuned palette, not an inversion.
   Dark applies when the visitor chose it (data-theme="dark") or when the system prefers dark
-  and the visitor has not chosen light.
+  and the visitor has not chosen light. The two dark blocks must stay identical; a unit test
+  (tests/unit/tokens.test.ts) enforces that and every contrast pair.
 */
 :root {
   color-scheme: light;
@@ -12,6 +13,7 @@
   --rule: #d3d9cf;
   --accent: #1f5c45;
   --accent-soft: #dcede3;
+  --on-accent: #f5f6f0;
   --secondary: #34506e;
   --success: #2f6b3a;
   --warn: #8a5a00;
@@ -27,6 +29,7 @@
     --rule: #2f3b35;
     --accent: #82cca8;
     --accent-soft: #1e3a2e;
+    --on-accent: #131a17;
     --secondary: #9db7d6;
     --success: #8fd19a;
     --warn: #e0b45c;
@@ -42,6 +45,7 @@
   --rule: #2f3b35;
   --accent: #82cca8;
   --accent-soft: #1e3a2e;
+  --on-accent: #131a17;
   --secondary: #9db7d6;
   --success: #8fd19a;
   --warn: #e0b45c;
