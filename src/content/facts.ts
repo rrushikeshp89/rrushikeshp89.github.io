@@ -10,7 +10,13 @@ const LEADHUB_REPO = `${GITHUB}/leadhub-crm`;
 const STOCKROOM_REPO = `${GITHUB}/stockroom-erp`;
 
 export const rawFacts = {
-  site: { url: TODO_CONFIRM, source: `${GITHUB}/portfolio` },
+  site: {
+    url: TODO_CONFIRM,
+    source: `${GITHUB}/portfolio`,
+    credits: [
+      { text: "Scroll stroke adapted from", linkText: "Skiper UI", href: "https://skiper-ui.com" },
+    ],
+  },
   identity: {
     name: "Rushikesh Panchal",
     role: "Software Developer",

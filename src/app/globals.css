@@ -161,6 +161,44 @@
     }
   }
 
+  /*
+    The scroll stroke (components/decor/ScrollStroke.tsx) sits in the sticky margin of Selected
+    work and draws as the reader moves through that section: 0% when the section first fills the
+    screen, 100% when its end reaches the bottom. Without scroll timelines, or with reduced
+    motion, it is simply fully drawn, so the static page still looks finished.
+  */
+  .work-progress {
+    view-timeline: --work-progress block;
+  }
+
+  .scroll-stroke {
+    display: block;
+    width: 100%;
+    max-width: 15rem;
+    max-height: calc(100vh - 16rem);
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .scroll-stroke path {
+    stroke: var(--stroke-highlight);
+    stroke-width: 40;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .scroll-stroke path {
+        animation: stroke-draw linear both;
+        animation-timeline: --work-progress;
+        animation-range: contain 0% contain 100%;
+      }
+    }
+  }
+
   .slip {
     transform-origin: var(--radix-popover-content-transform-origin);
   }
@@ -169,6 +207,15 @@
     .slip[data-state="open"] {
       animation: slip-in 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
     }
+  }
+}
+
+@keyframes stroke-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
