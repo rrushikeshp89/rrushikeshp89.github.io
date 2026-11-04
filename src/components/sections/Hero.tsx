@@ -1,5 +1,6 @@
 import { Receipt } from "@/components/receipts/Receipt";
-import { ButtonLink } from "@/components/ui/Button";
+import { EmailOptions } from "@/components/contact/EmailOptions";
+import { ButtonLink, buttonClassName } from "@/components/ui/Button";
 import { facts } from "@/content/facts";
 import { getMetric } from "@/content/queries";
 import { keepHyphensTogether } from "@/lib/format";
@@ -22,9 +23,9 @@ export function Hero() {
         <ButtonLink href="#work" className="min-h-12 sm:min-h-11">
           See the work
         </ButtonLink>
-        <ButtonLink href={`mailto:${email}`} variant="quiet" className="min-h-12 sm:min-h-11">
+        <EmailOptions email={email} className={buttonClassName("quiet", "min-h-12 sm:min-h-11")}>
           Email me
-        </ButtonLink>
+        </EmailOptions>
       </div>
       <p className="col-span-12 mt-14 max-w-[60ch] border-t border-rule pt-6 text-ink lg:col-span-8 lg:col-start-5">
         Recent work: Grove HRMS, a <Receipt inline metric={getMetric("grove-tables")} />

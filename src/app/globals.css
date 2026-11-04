@@ -219,7 +219,8 @@
   /* Where anchor positioning exists, the slip opens next to its number on wide screens. */
   @supports (anchor-name: --a) {
     @media (min-width: 640px) {
-      .receipt {
+      .receipt,
+      [data-slip-anchor] {
         anchor-name: var(--receipt-anchor);
       }
 

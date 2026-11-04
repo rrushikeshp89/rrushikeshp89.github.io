@@ -1,6 +1,7 @@
+import { EmailOptions } from "@/components/contact/EmailOptions";
 import { ButtonLink } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
-import { TextLink } from "@/components/ui/TextLink";
+import { LINK_STYLE } from "@/components/ui/TextLink";
 import { facts } from "@/content/facts";
 import { TODO_CONFIRM } from "@/content/schema";
 
@@ -11,12 +12,12 @@ export function Contact() {
     <Section id="contact" title="Contact">
       <p className="max-w-[22ch] font-display text-h2">Email is the quickest way to reach me.</p>
       <p className="mt-6">
-        <TextLink
-          href={`mailto:${email}`}
-          className="inline-flex min-h-11 items-center text-lead break-all"
+        <EmailOptions
+          email={email}
+          className={`${LINK_STYLE} inline-flex min-h-11 items-center text-lead break-all`}
         >
           {email}
-        </TextLink>
+        </EmailOptions>
       </p>
       <ul className="mt-10 flex flex-wrap gap-3">
         <li>
