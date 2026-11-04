@@ -51,13 +51,17 @@ test("the page never scrolls sideways", async ({ page }) => {
   expect(overflow).toBeLessThanOrEqual(0);
 });
 
-test("interactive targets are at least 44 by 44 pixels", async ({ page }) => {
+test("interactive targets are at least 44 by 44 pixels (inline ones excepted)", async ({
+  page,
+}) => {
   await page.goto("/");
   const undersized = await page
     .locator("main a, main button, header a, header button, footer a")
     .evaluateAll((elements) =>
       elements
         .filter((element) => element.getClientRects().length > 0)
+        // WCAG 2.5.8 exempts targets inside a sentence, such as the hero's inline receipts.
+        .filter((element) => !element.hasAttribute("data-inline-target"))
         .map((element) => {
           const { width, height } = element.getBoundingClientRect();
           return { text: element.textContent?.trim() ?? "", width, height };

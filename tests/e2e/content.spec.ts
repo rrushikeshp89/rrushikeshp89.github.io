@@ -1,8 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { rawFacts } from "../../src/content/facts";
+import { DEMO_PEOPLE } from "../../src/content/roleDemo";
 import { TODO_CONFIRM } from "../../src/content/schema";
 
-const FACTS_TEXT = JSON.stringify(rawFacts);
+/** Numbers may come from facts.ts or from the labelled, illustrative role-switch data. */
+const FACTS_TEXT = JSON.stringify(rawFacts) + JSON.stringify(DEMO_PEOPLE);
 const NUMBER_TOKEN = /\d+(?:[.,]\d+)*/g;
 const PHONE_PATTERN = /(?<!\d)(?:\+?91[\s-]?)?[6-9]\d{9}(?!\d)/;
 
@@ -11,7 +13,7 @@ test.describe("home page content", () => {
     await page.goto("/");
   });
 
-  test("every number on the page comes from facts.ts", async ({ page }) => {
+  test("every number on the page comes from facts.ts or the demo data", async ({ page }) => {
     const text = await page.locator("body").innerText();
     const numbers = [...new Set(text.match(NUMBER_TOKEN) ?? [])];
 
