@@ -8,6 +8,8 @@ const GITHUB = "https://github.com/rrushikeshp89";
 const GROVE_REPO = `${GITHUB}/grove-hrms`;
 const LEADHUB_REPO = `${GITHUB}/leadhub-crm`;
 const STOCKROOM_REPO = `${GITHUB}/stockroom-erp`;
+const blob = (repo: string, path: string) => `${repo}/blob/main/${path}`;
+const tree = (repo: string, path: string) => `${repo}/tree/main/${path}`;
 
 export const rawFacts = {
   site: {
@@ -84,8 +86,12 @@ export const rawFacts = {
           label: "tables",
           receipt: {
             explanation:
-              "The Prisma schema models people, attendance, leave, payroll and recruitment in 45 tables.",
-            proof: { kind: "repo", href: GROVE_REPO, label: "Grove HRMS source on GitHub" },
+              "The Prisma schema defines 45 models covering people, attendance, leave, payroll and recruitment.",
+            proof: {
+              kind: "repo",
+              href: blob(GROVE_REPO, "prisma/schema.prisma"),
+              label: "prisma/schema.prisma in Grove HRMS",
+            },
           },
         },
         {
@@ -96,7 +102,11 @@ export const rawFacts = {
           receipt: {
             explanation:
               "26 permissions, each scoped to own, team or company records, checked on the server across 4 roles.",
-            proof: { kind: "repo", href: GROVE_REPO, label: "Grove HRMS source on GitHub" },
+            proof: {
+              kind: "repo",
+              href: blob(GROVE_REPO, "src/lib/rbac.ts"),
+              label: "src/lib/rbac.ts in Grove HRMS",
+            },
           },
         },
         {
@@ -107,7 +117,11 @@ export const rawFacts = {
           receipt: {
             explanation:
               "More than 130 Vitest unit tests and Playwright end-to-end tests, including axe accessibility scans.",
-            proof: { kind: "repo", href: GROVE_REPO, label: "Grove HRMS test suites on GitHub" },
+            proof: {
+              kind: "tests",
+              href: tree(GROVE_REPO, "tests/e2e"),
+              label: "Playwright suites in Grove HRMS (tests/e2e)",
+            },
           },
         },
         {
@@ -167,8 +181,13 @@ export const rawFacts = {
           countTo: 20,
           label: "permissions across 3 roles",
           receipt: {
-            explanation: "Four-layer RBAC: 20 permissions assigned across 3 roles.",
-            proof: { kind: "repo", href: STOCKROOM_REPO, label: "Stockroom ERP source on GitHub" },
+            explanation:
+              "Four-layer RBAC: 20 permissions assigned across 3 roles (admin, manager, staff).",
+            proof: {
+              kind: "repo",
+              href: blob(STOCKROOM_REPO, "server/src/rbac.js"),
+              label: "server/src/rbac.js in Stockroom",
+            },
           },
         },
         {
@@ -177,8 +196,12 @@ export const rawFacts = {
           label: "cumulative layout shift",
           receipt: {
             explanation:
-              "A headless-Chrome audit tool measured layout shift before and after the fixes: 0.495 down to 0.004.",
-            proof: { kind: "repo", href: STOCKROOM_REPO, label: "Stockroom ERP source on GitHub" },
+              "A headless-Chrome audit measured layout shift on every page and interaction: the worst case was 0.495 before the fixes and 0.004 after.",
+            proof: {
+              kind: "repo",
+              href: blob(STOCKROOM_REPO, "docs/ux/REPORT.md"),
+              label: "UX audit report in Stockroom (docs/ux/REPORT.md)",
+            },
           },
         },
         {
@@ -188,8 +211,12 @@ export const rawFacts = {
           label: "undersized tap targets fixed",
           receipt: {
             explanation:
-              "The same audit tool flagged 956 tap targets below the minimum size; all were fixed.",
-            proof: { kind: "repo", href: STOCKROOM_REPO, label: "Stockroom ERP source on GitHub" },
+              "At 390 px and narrower, the same audit found 956 controls smaller than 44 px; after the fixes there were none.",
+            proof: {
+              kind: "repo",
+              href: blob(STOCKROOM_REPO, "docs/ux/REPORT.md"),
+              label: "UX audit report in Stockroom (docs/ux/REPORT.md)",
+            },
           },
         },
       ],
