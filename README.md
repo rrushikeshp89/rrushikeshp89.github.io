@@ -40,7 +40,7 @@
 
 ## 🌿 What it is
 
-The portfolio of **Rushikesh Panchal**, a Bengaluru-based Software Developer (B.Tech CSE, Data Science, Garden City University, 2026) who builds full-stack TypeScript business systems with **server-side access control**, **transactional data integrity** and **end-to-end testing**.
+**Rushikesh Panchal**, a Bengaluru-based Software Developer (B.Tech CSE, Data Science, Garden City University, 2026) who builds full-stack TypeScript business systems with **server-side access control**, **transactional data integrity** and **end-to-end testing**.
 
 It has one job: convince a hiring manager in 30 seconds that the work is real, and make it easy to get in touch. So the site is built to be **evidence of the claims it makes**:
 
