@@ -24,6 +24,7 @@ export const rawFacts = {
     linkedin: "https://www.linkedin.com/in/rushikesh-panchal/",
     github: GITHUB,
     headline: "Software developer building reliable full-stack TypeScript systems.",
+    headlineEmphasis: "full-stack TypeScript",
     subline:
       "Next.js, Node.js and PostgreSQL, with server-side access control, transactional data integrity and end-to-end tests.",
     availability: "Based in Bengaluru, open to Software Developer roles.",

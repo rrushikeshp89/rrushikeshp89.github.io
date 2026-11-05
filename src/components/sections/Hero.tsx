@@ -6,7 +6,8 @@ import { getMetric } from "@/content/queries";
 import { keepHyphensTogether } from "@/lib/format";
 
 export function Hero() {
-  const { headline, subline, availability, email } = facts.identity;
+  const { headline, headlineEmphasis, subline, availability, email } = facts.identity;
+  const [before = "", after = ""] = headline.split(headlineEmphasis);
 
   return (
     <section
@@ -14,8 +15,20 @@ export function Hero() {
       className="relative isolate mx-auto grid max-w-page grid-cols-12 gap-x-6 px-4 pt-14 pb-16 sm:px-6 lg:px-8 lg:pt-24 lg:pb-24"
     >
       <div aria-hidden="true" className="flow-lines" />
-      <h1 id="hero-title" className="col-span-12 font-display text-display lg:col-span-10">
-        {keepHyphensTogether(headline)}
+      {/*
+        From 1280 px the headline takes the full width at 68 px and breaks before the emphasis,
+        so it reads as two lines: the plain clause, then the accent phrase. The first line needs
+        about 1,068 px at that size and the column is 1,088 px. Narrower screens wrap naturally.
+      */}
+      <h1
+        id="hero-title"
+        className="col-span-12 font-display text-display lg:col-span-10 xl:col-span-12 xl:text-[4.25rem]"
+      >
+        {keepHyphensTogether(before.trimEnd())} <br className="hidden xl:inline" />
+        <em className="font-display-italic text-accent italic">
+          {keepHyphensTogether(headlineEmphasis)}
+        </em>
+        {keepHyphensTogether(after)}
       </h1>
       <p className="col-span-12 mt-6 max-w-[46ch] text-lead lg:col-span-7">{subline}</p>
       <p className="col-span-12 mt-3 text-ink-muted">{availability}</p>

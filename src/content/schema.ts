@@ -114,6 +114,8 @@ export const factsSchema = z
       linkedin: httpsUrl,
       github: httpsUrl,
       headline: text,
+      /** The phrase of the headline set in italic accent; must occur in `headline`. */
+      headlineEmphasis: text,
       subline: text,
       availability: text,
       objective: text,
@@ -143,6 +145,10 @@ export const factsSchema = z
 
     const groups = facts.skills.map((skill) => skill.group);
     reportDuplicates(groups, "skill group", ctx);
+
+    if (!facts.identity.headline.includes(facts.identity.headlineEmphasis)) {
+      ctx.addIssue({ code: "custom", message: "headlineEmphasis must appear in headline" });
+    }
   });
 
 function reportDuplicates(values: readonly string[], label: string, ctx: z.RefinementCtx) {

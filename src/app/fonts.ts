@@ -13,13 +13,12 @@ export const display = Newsreader({
   variable: "--font-newsreader",
 });
 
-/** Italic is only used for section titles below the fold, so it is not preloaded. */
+/** Italic sets the emphasised phrase in the hero headline, so it is preloaded with the upright. */
 export const displayItalic = Newsreader({
   subsets: ["latin"],
   weight: "500",
   style: "italic",
   display: "swap",
-  preload: false,
   variable: "--font-newsreader-italic",
 });
 

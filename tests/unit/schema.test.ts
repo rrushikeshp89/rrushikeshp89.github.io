@@ -37,6 +37,12 @@ describe("factsSchema", () => {
     expect(issuesFor(input)).not.toHaveLength(0);
   });
 
+  it("rejects a headline emphasis that is not in the headline", () => {
+    const input = clone();
+    input.identity.headlineEmphasis = "Rust";
+    expect(issuesFor(input)).toContain("headlineEmphasis must appear in headline");
+  });
+
   it("rejects a malformed date", () => {
     const input = clone();
     const [job] = input.experience;
