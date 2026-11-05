@@ -185,7 +185,7 @@ Every push runs the full pipeline. Only a green `main` is published.
 ## 🧭 How it works
 
 ```mermaid
-flowchart LR
+flowchart TB
   F["📒 facts.ts<br/>single source of truth"] --> Z{"Zod schema"}
   Z -- invalid --> X["❌ build fails"]
   Z -- valid --> N["⚛️ next build<br/>static export"]
