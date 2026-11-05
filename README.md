@@ -246,7 +246,7 @@ src/
 scripts/                      serve-static · build-resume · lighthouse · check-bundle
 tests/unit · tests/e2e        Vitest and Playwright specs
 tools/flow-lines/             fluidsim generator for the hero art (offline)
-DECISIONS.md                  31 architecture decision records, skills log, measurements
+DECISIONS.md                  32 architecture decision records, skills log, measurements
 ```
 
 ## 🚀 Run it locally
@@ -308,7 +308,7 @@ A living style guide is at [`/design/`](https://rrushikeshp89.github.io/design/)
 
 ## 📚 Decisions
 
-[`DECISIONS.md`](DECISIONS.md) records **31 ADRs**, including the ones that changed the plan:
+[`DECISIONS.md`](DECISIONS.md) records **32 ADRs**, including the ones that changed the plan:
 
 | ADR | Decision                                                                     |
 | :-- | :--------------------------------------------------------------------------- |

@@ -131,6 +131,12 @@ Heuristic review of the section order: Work comes before Experience, which is ri
   - **Why not a contact form:** no third party sees anything unless the visitor picks Gmail or Outlook, so there is no form service, key, spam handling or privacy note to maintain (ADR-007 stands).
   - **Cost and checks:** +0.6 kB of JS. e2e covers the `mailto:` fallback, every action's link, a real clipboard copy, Esc and focus return, the Contact trigger, and axe on the open panel.
 
+- **ADR-032 The headline emphasises "full-stack TypeScript", at the owner's request.** The phrase is set in Newsreader italic in the accent colour (7.5:1 in light; the dark accent passes the token contrast tests). frontend-design advises against accenting one phrase of a headline, but the owner asked for it with a reference image, and the brief's own words win on visual direction.
+  - **Data:** the phrase is `identity.headlineEmphasis` in `facts.ts`, and the schema fails the build unless it occurs in `headline`. The plain headline still feeds titles, share cards and JSON-LD.
+  - **Layout:** from 1280 px the `h1` spans the full width at 4.25 rem and breaks before the phrase, giving the reference's two lines (line 1 needs about 1,068 px of the 1,088 px column). Narrower screens wrap naturally.
+  - **Fonts:** the italic is now preloaded, because it is above the fold.
+  - **Measured:** the first local Lighthouse runs after this change failed (85–92). An A/B on the same machine showed the build _without_ the change also failing (87 / 87) and the build with it passing (97 / 99), so the dip was host noise, not the change.
+
 ## Skills log
 
 | Phase                | Skill                  | What it changed                                                                                                                                                                                                                                                                                               |
