@@ -139,7 +139,7 @@ Heuristic review of the section order: Work comes before Experience, which is ri
 
 - **ADR-033 Site icon and tab title, at the owner's request.** The tab showed a generic globe and the long "Rushikesh Panchal, Software Developer".
   - **Icon:** a Newsreader italic "R" in paper on an accent-green rounded square, echoing the italic accent of the headline. `tools/icons/generate.mjs` converts the glyph to an outline path with opentype.js, so `src/app/icon.svg` needs no font (914 bytes). It also renders `favicon.ico` (16, 32 and 48 px PNGs inside one ICO) and a full-bleed 180 px `apple-icon.png` with Playwright. Next.js links all three by file convention. The R fills about 70% of the square so it stays legible at 16 px.
-  - **Title:** the tab title is now `facts.site.title`, "Rushikesh portfolio", and the suffix of every other page (for example "Grove HRMS case study | Rushikesh portfolio"). Link previews (Open Graph and Twitter) keep the descriptive "Rushikesh Panchal, Software Developer", which says more when shared. An e2e test checks the titles, the icon links and the icon content types.
+  - **Title:** the tab title is now `facts.site.title`, "Portfolio" (the owner first chose "Rushikesh portfolio", then shortened it), and the suffix of every other page (for example "Grove HRMS case study | Portfolio"). Link previews (Open Graph and Twitter) keep the descriptive "Rushikesh Panchal, Software Developer", which says more when shared. An e2e test checks the titles, the icon links and the icon content types.
 
 ## Skills log
 
