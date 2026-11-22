@@ -103,6 +103,8 @@ const skillGroupSchema = z.object({
 export const factsSchema = z
   .object({
     site: z.object({
+      /** The browser-tab title of the home page and the suffix of every other page's title. */
+      title: text,
       url: z.union([httpsUrl, pending]),
       source: httpsUrl,
     }),

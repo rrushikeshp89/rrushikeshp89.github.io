@@ -12,24 +12,26 @@ import "./globals.css";
 
 const { name, role, headline } = facts.identity;
 
-const siteTitle = `${name}, ${role}`;
+/** Tab title (owner's choice) vs. share title: link previews keep the name and role. */
+const tabTitle = facts.site.title;
+const shareTitle = `${name}, ${role}`;
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title: { default: siteTitle, template: `%s | ${name}` },
+  title: { default: tabTitle, template: `%s | ${tabTitle}` },
   description: headline,
   authors: [{ name, url: facts.identity.github }],
   openGraph: {
     type: "website",
     siteName: name,
-    title: siteTitle,
+    title: shareTitle,
     description: headline,
     locale: "en_IN",
     images: ogImageMetadata("/og.png", `${name}: ${headline}`),
   },
   twitter: {
     card: "summary_large_image",
-    title: siteTitle,
+    title: shareTitle,
     description: headline,
     images: ["/og.png"],
   },

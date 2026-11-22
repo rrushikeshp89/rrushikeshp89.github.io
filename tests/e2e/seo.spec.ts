@@ -79,3 +79,31 @@ test("unknown pages show the custom 404 with a way back", async ({ page }) => {
   await page.getByRole("link", { name: "Go to the home page" }).click();
   await expect(page).toHaveURL(/\/$/);
 });
+
+test("pages are titled with the site title, and the site has an icon", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/");
+  await expect(page).toHaveTitle(rawFacts.site.title);
+  await page.goto("/work/grove-hrms/");
+  await expect(page).toHaveTitle(`Grove HRMS case study | ${rawFacts.site.title}`);
+
+  await page.goto("/");
+  const icons = await page
+    .locator('link[rel="icon"], link[rel="apple-touch-icon"]')
+    .evaluateAll((links) => links.map((link) => link.getAttribute("href") ?? ""));
+  expect(icons.some((href) => href.includes("icon.svg"))).toBe(true);
+  expect(icons.some((href) => href.includes("favicon.ico"))).toBe(true);
+  expect(icons.some((href) => href.includes("apple-icon"))).toBe(true);
+
+  for (const [path, type] of [
+    ["/icon.svg", /^image\/svg\+xml/],
+    ["/favicon.ico", /^image\/(x-icon|vnd\.microsoft\.icon)/],
+    ["/apple-icon.png", /^image\/png/],
+  ] as const) {
+    const response = await request.get(path);
+    expect(response.status(), path).toBe(200);
+    expect(response.headers()["content-type"], path).toMatch(type);
+  }
+});
