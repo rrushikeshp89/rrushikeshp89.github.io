@@ -27,7 +27,7 @@ export default defineConfig([
   },
   {
     // Build and audit scripts report to the terminal.
-    files: ["scripts/**/*.mjs"],
+    files: ["scripts/**/*.mjs", "tools/**/*.mjs"],
     rules: { "no-console": "off" },
   },
   globalIgnores([

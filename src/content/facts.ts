@@ -13,6 +13,7 @@ const tree = (repo: string, path: string) => `${repo}/tree/main/${path}`;
 
 export const rawFacts = {
   site: {
+    title: "Portfolio",
     url: "https://rrushikeshp89.github.io",
     source: `${GITHUB}/rrushikeshp89.github.io`,
   },
